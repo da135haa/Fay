@@ -79,22 +79,22 @@ class MyServer:
             return None
 
 
-    #Edit by xszyou on 20230113:通过继承此类来实现服务端的接收后处理逻辑
+    #Edit by xszyou on 20230113:通过继承此类來实现服务端的接收后处理逻辑
     @abstractmethod
     def on_revice_handler(self, message):
         pass
 
-    #Edit by xszyou on 20230114:通过继承此类来实现服务端的连接处理逻辑
+    #Edit by xszyou on 20230114:通过继承此类來实现服务端的连接处理逻辑
     @abstractmethod
     def on_connect_handler(self):
         pass
     
-    #Edit by xszyou on 20230804:通过继承此类来实现服务端的发送前的处理逻辑
+    #Edit by xszyou on 20230804:通过继承此类來实现服务端的发送前的处理逻辑
     @abstractmethod
     def on_send_handler(self, message):
         return message
 
-    #Edit by xszyou on 20230816:通过继承此类来实现服务端的断开后的处理逻辑
+    #Edit by xszyou on 20230816:通过继承此类來实现服务端的断开后的处理逻辑
     @abstractmethod
     def on_close_handler(self):
         pass
@@ -125,7 +125,7 @@ class MyServer:
     def set_fei_fei(self):
         pass
 
-    # 开启服务
+    # 開啟服务
     def start_server(self):
         MyThread(target=self.__connect).start()
 
@@ -159,7 +159,7 @@ class WebServer(MyServer):
         pass
     
     def on_connect_handler(self):
-        self.add_cmd({"panelMsg": "使用提示：Fay可以独立使用，启动数字人将自动对接。"})
+        self.add_cmd({"panelMsg": "使用提示：AI可以獨立使用，啟動AI形象將自動對接。"})
 
     def on_send_handler(self, message):
         return message

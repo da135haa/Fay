@@ -3,7 +3,7 @@ from enum import Enum
 
 class EnumVoice(Enum):
     XIAO_XIAO = {
-        "name": "晓晓",
+        "name": "XiaoxiaoNeural(女)",
         "voiceName": "zh-CN-XiaoxiaoNeural",
         "styleList": {
             "angry": "angry",
@@ -14,7 +14,7 @@ class EnumVoice(Enum):
         }
     }
     YUN_XI = {
-        "name": "云溪",
+        "name": "YunxiNeural(男)",
         "voiceName": "zh-CN-YunxiNeural",
         "styleList": {
             "angry": "angry",
@@ -25,7 +25,7 @@ class EnumVoice(Enum):
         }
     }
     YUN_JIAN = {
-        "name": "云健",
+        "name": "YunjianNeural(男)",
         "voiceName": "zh-CN-YunjianNeural",
         "styleList": {
             "angry": "angry",
@@ -36,7 +36,7 @@ class EnumVoice(Enum):
         }
     }
     XIAO_YI = {
-        "name": "晓伊",
+        "name": "XiaoyiNeural(女)",
         "voiceName": "zh-CN-XiaoyiNeural",
         "styleList": {
             "angry": "angry",
@@ -47,7 +47,7 @@ class EnumVoice(Enum):
         }
     }
     YUN_YANG = {
-        "name": "云阳",
+        "name": "YunyangNeural(男)",
         "voiceName": "zh-CN-YunyangNeural",
         "styleList": {
             "angry": "angry",
@@ -58,7 +58,7 @@ class EnumVoice(Enum):
         }
     }
     YUN_XIA = {
-        "name": "云夏",
+        "name": "YunxiaNeural(女)",
         "voiceName": "zh-CN-YunxiaNeural",
         "styleList": {
             "angry": "angry",

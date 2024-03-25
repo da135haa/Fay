@@ -226,7 +226,7 @@ class FeiFei:
                         self.chat_list[user_name]["history"].append(answer_info)
                        
                     elif index == 2:
-                        self.a_msg = ['新来的宝贝记得点点关注噢！么么哒！', '我的宝贝{}欢迎你来到直播间，欢迎欢迎！'.format(user_name), '欢迎{}宝贝来到我们的直播间，记得点点关注，给主播加加油噢！'.format(user_name)][
+                        self.a_msg = ['新來的宝贝记得点点关注噢！么么哒！', '我的宝贝{}欢迎你來到直播间，欢迎欢迎！'.format(user_name), '欢迎{}宝贝來到我们的直播间，记得点点关注，给主播加加油噢！'.format(user_name)][
                             random.randint(0, 2)]
                         
                     elif index == 3:
@@ -240,7 +240,7 @@ class FeiFei:
                                       '哇！太感谢{}送我的{}！太感谢了！我的好朋友！祝您才华四溢！'.format(interact.data["user"],  gift),
                                       '感谢{}送我的{}！太感谢了！我的好朋友！主播好开心！么么哒！'.format(interact.data["user"],  gift),
                                       '哇！太感谢我的小可爱{}送我的{}！祝您元气满满！开心快乐！'.format(interact.data["user"],  gift),
-                                      '一口气感谢了那么多礼物！真的太开心了！谢谢宝宝们的礼物！',
+                                      '一口气感谢了那么多禮物！真的太开心了！谢谢宝宝们的禮物！',
                                       ][random.randint(0, 8)]
 
                     elif index == 4:
@@ -249,8 +249,8 @@ class FeiFei:
                        
 
                     elif index == 5:
-                        self.a_msg = ['收到那么多礼物！主播真的太开心了！谢谢宝宝们的礼物！不服天！不服地！就服宝宝们的实力',
-                                       '哇！收到这么多礼物！主播好开心！谢谢宝宝们！'][
+                        self.a_msg = ['收到那么多禮物！主播真的太开心了！谢谢宝宝们的禮物！不服天！不服地！就服宝宝们的实力',
+                                       '哇！收到这么多禮物！主播好开心！谢谢宝宝们！'][
                         random.randint(0, 2)]
 
                     elif index == 6:
@@ -259,11 +259,11 @@ class FeiFei:
                     elif index == 7:
                         self.a_msg = ['看见下面不要钱的辣条了吗？点一点！谁点得多！就是主播最好的朋友!', 
                                       '咦?怎么没人点赞啦?点点支持一下主播!主播十分需要你这个朋友!',
-                                      '给个小礼物！主播给你画个心喔！',
+                                      '给个小禮物！主播给你画个心喔！',
                                       '主播这么勤快！还不点点关注？',
-                                      '宝宝们！快来点点赞！谁能点够100下就是主播最好最好的朋友了！',
+                                      '宝宝们！快來点点赞！谁能点够100下就是主播最好最好的朋友了！',
                                       '各位宝宝们！点点赞，给主播加加油吧！',
-                                      '观众姥爷们!快关注起来！助力主播进步一点点！'][
+                                      '观众姥爷们!快关注起來！助力主播进步一点点！'][
                             random.randint(0, 6)]
                     self.last_speak_data = self.a_msg
                     self.speaking = True
@@ -589,7 +589,7 @@ class FeiFei:
         try:
             while True:
                 self.deviceConnect,addr=self.deviceSocket.accept()   #接受TCP连接，并返回新的套接字与IP地址
-                MyThread(target=self.__device_socket_keep_alive).start() # 开启心跳包检测
+                MyThread(target=self.__device_socket_keep_alive).start() # 開啟心跳包检测
                 util.log(1,"远程音频输入输出设备连接上：{}".format(addr))
                 wsa_server.get_web_instance().add_cmd({"remote_audio_connect": True})
                 while self.deviceConnect: #只允许一个设备连接

@@ -644,7 +644,7 @@ fi
 #选择一个homebrew-bottles下载源
 echo -n "${tty_green}
 
-            Brew本体已经安装成功，接下来配置国内源。
+            Brew本体已经安装成功，接下來配置国内源。
 
 请选择今后brew install的时候访问那个国内镜像，例如阿里巴巴，输入5回车。
 
@@ -801,7 +801,7 @@ echo "
 查看brew版本：brew -v  更新brew版本：brew update
 安装cask软件：brew install --cask firefox 把firefox换成你要安装的
         ${tty_green}
-        欢迎右键点击下方地址-打开URL 来给个星${tty_reset}
+        欢迎右键点击下方地址-打开URL 來给个星${tty_reset}
         ${tty_underline} https://github.com/TheRamU/Fay ${tty_reset}
 "
 

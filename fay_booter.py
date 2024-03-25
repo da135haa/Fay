@@ -238,7 +238,7 @@ def stop():
         deviceInputListener.stop()
     util.log(1, '正在关闭核心服务...')
     feiFei.stop()
-    util.log(1, '服务已关闭！')
+    util.log(1, '服务已關閉！')
 
 
 def start():
@@ -249,13 +249,13 @@ def start():
     global __running
     global deviceInputListener
 
-    util.log(1, '开启服务...')
+    util.log(1, '開啟服务...')
     __running = True
 
     util.log(1, '读取配置...')
     config_util.load_config()
 
-    util.log(1, '开启核心服务...')
+    util.log(1, '開啟核心服务...')
     feiFei = fay_core.new_instance()
     feiFei.start()
 
@@ -265,17 +265,17 @@ def start():
     
 
     if liveRoom['enabled']:
-        util.log(1, '开启直播服务...')
+        util.log(1, '開啟直播服务...')
         viewerListener = ViewerListener()  # 监听直播间
         viewerListener.start()
 
     if record['enabled']:
-        util.log(1, '开启录音服务...')
+        util.log(1, '開啟录音服务...')
         recorderListener = RecorderListener(record['device'], feiFei)  # 监听麦克风
         recorderListener.start()
 
-    #edit by xszyou on 20230113:通过此服务来连接k210、手机等音频输入设备
-    util.log(1,'开启远程设备音频输入服务...')
+    #edit by xszyou on 20230113:通过此服务來连接k210、手机等音频输入设备
+    util.log(1,'開啟远程设备音频输入服务...')
     deviceInputListener = DeviceInputListener(feiFei)  # 设备音频输入输出麦克风
     deviceInputListener.start()
 

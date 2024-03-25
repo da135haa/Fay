@@ -64,12 +64,12 @@ def api_get_data():
     config_util.save_config(config_data)
     wsa_server.get_web_instance().add_cmd({
         "voiceList": [
-            {"id": EnumVoice.XIAO_XIAO.name, "name": "晓晓"},
-            {"id": EnumVoice.YUN_XI.name, "name": "云溪"},
-            {"id": EnumVoice.YUN_JIAN.name, "name": "云健"},
-            {"id": EnumVoice.XIAO_YI.name, "name": "晓伊"},
-            {"id": EnumVoice.YUN_YANG.name, "name": "云阳"},
-            {"id": EnumVoice.YUN_XIA.name, "name": "云夏"}
+            {"id": EnumVoice.XIAO_XIAO.name, "name": "XiaoxiaoNeural(女)"},
+            {"id": EnumVoice.YUN_XI.name, "name": "YunxiNeural(男)"},
+            {"id": EnumVoice.YUN_JIAN.name, "name": "YunjianNeural(男)"},
+            {"id": EnumVoice.XIAO_YI.name, "name": "XiaoyiNeural(女)"},
+            {"id": EnumVoice.YUN_YANG.name, "name": "YunyangNeural(男"},
+            {"id": EnumVoice.YUN_XIA.name, "name": "YunxiaNeural(女)"}
         ]
     })
     wsa_server.get_web_instance().add_cmd({"deviceList": __get_device_list()})
@@ -104,17 +104,17 @@ def api_get_wx_msg():
             wx_msg_msg_id = info['msg_id']
             if info['decoded_type'] == 'enter':
                 #进入
-                interact = Interact("live", 2, {"user": info['nickname'], "msg": "来了"})
+                interact = Interact("live", 2, {"user": info['nickname'], "msg": "來了"})
             elif info['decoded_type'] == 'comment':
                 #留言
                 interact = Interact("live", 1, {"user": info['nickname'], "msg": info['content']})
                 fay_core.new_instance().last_quest_time = time.time()
             elif info['decoded_type'] == 'gift':
-                #礼物
-                interact = Interact("live", 3, {"user": info['nickname'], "msg": "礼物", "gift": '礼物', "amount": info['gift_num'],})
+                #禮物
+                interact = Interact("live", 3, {"user": info['nickname'], "msg": "禮物", "gift": '禮物', "amount": info['gift_num'],})
             MyThread(target=fay_core.new_instance().on_interact, args=[interact]).start()
     else:
-        util.log(1, "请先进行开启")    
+        util.log(1, "請先進行開啟")    
     return '{"result":"successful"}' 
 
 

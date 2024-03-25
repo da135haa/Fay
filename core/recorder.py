@@ -85,7 +85,7 @@ class Recorder:
    
     def __record(self):
         try:
-            stream = self.get_stream() #把get stream的方式封装出来方便实现麦克风录制及网络流等不同的流录制子类
+            stream = self.get_stream() #把get stream的方式封装出來方便实现麦克风录制及网络流等不同的流录制子类
         except Exception as e:
                 print(e)
                 util.log(1, "请检查设备是否有误，再重新启动!")
@@ -175,7 +175,7 @@ class Recorder:
     def on_speaking(self, text):
         pass
 
-    #TODO Edit by xszyou on 20230113:把流的获取方式封装出来方便实现麦克风录制及网络流等不同的流录制子类
+    #TODO Edit by xszyou on 20230113:把流的获取方式封装出來方便实现麦克风录制及网络流等不同的流录制子类
     @abstractmethod
     def get_stream(self):
         pass

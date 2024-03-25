@@ -73,7 +73,7 @@ class Yuan1Dialog:
         exs = self.get_relative_qa(prompt, h_dialog)
         yuan, ex_ids = self.update_example(yuan, exs)
         response = yuan.submit_API(prompt=prompt, trun="。")
-        if len(h_dialog)<10:    # 设置保存最多不超过10轮最近的历史对话
+        if len(h_dialog)<10:    # 设置存檔最多不超过10轮最近的历史对话
             h_dialog.append(Example(inp=prompt,out=response))
         else:
             del(h_dialog[0])

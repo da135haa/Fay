@@ -44,15 +44,15 @@ class WS_Client:
             elif data["Type"] == 3:#进入
                 if len(interact_datas) >= 5:
                     interact_datas.pop()
-                interact_datas.append(Interact("live", 2, {"user": json.loads(data["Data"])["User"]["Nickname"], "msg": "来了"}))
+                interact_datas.append(Interact("live", 2, {"user": json.loads(data["Data"])["User"]["Nickname"], "msg": "來了"}))
             elif data["Type"] == 4:#关注
                 if len(interact_datas) >= 5:
                     interact_datas.pop()
                 interact_datas.append(Interact("live", 4, {"user": json.loads(data["Data"])["User"]["Nickname"], "msg": "关注"}))
-            elif data["Type"] == 5:#礼物
+            elif data["Type"] == 5:#禮物
                 if len(interact_datas) >= 5:
                     interact_datas.pop()
-                interact_datas.append(Interact("live", 3, {"user": json.loads(data["Data"])["User"]["Nickname"], "msg": "礼物", "gift": json.loads(data["Data"])["GiftName"], "amount": json.loads(data["Data"])["GiftCount"]}))
+                interact_datas.append(Interact("live", 3, {"user": json.loads(data["Data"])["User"]["Nickname"], "msg": "禮物", "gift": json.loads(data["Data"])["GiftName"], "amount": json.loads(data["Data"])["GiftCount"]}))
        
             #...
         except Exception as e:
