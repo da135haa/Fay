@@ -2,6 +2,28 @@ from enum import Enum
 
 
 class EnumVoice(Enum):
+    HSIAO_CHEN = {
+        "name": "zh-TW-HsiaoChenNeural(女)",
+        "voiceName": "zh-TW-HsiaoChenNeural",
+        "styleList": {
+            "angry": "angry",
+            "lyrical": "lyrical",
+            "calm": "gentle",
+            "assistant": "affectionate",
+            "cheerful": "cheerful"
+        }
+    }
+    HSIAO_YU = {
+        "name": "zh-TW-HsiaoYuNeural(女)",
+        "voiceName": "zh-TW-HsiaoYuNeural",
+        "styleList": {
+            "angry": "angry",
+            "lyrical": "lyrical",
+            "calm": "gentle",
+            "assistant": "affectionate",
+            "cheerful": "cheerful"
+        }
+    }
     XIAO_XIAO = {
         "name": "XiaoxiaoNeural(女)",
         "voiceName": "zh-CN-XiaoxiaoNeural",
@@ -73,7 +95,7 @@ class EnumVoice(Enum):
 
 
 def get_voice_list():
-    return [EnumVoice.YUN_XI, EnumVoice.XIAO_XIAO, EnumVoice.YUN_JIAN, EnumVoice.XIAO_YI, EnumVoice.YUN_YANG, EnumVoice.YUN_XIA]
+    return [ EnumVoice.HSIAO_CHEN, EnumVoice.HSIAO_YU, EnumVoice.XIAO_XIAO, EnumVoice.YUN_XI, EnumVoice.YUN_JIAN, EnumVoice.XIAO_YI, EnumVoice.YUN_YANG, EnumVoice.YUN_XIA]
 
 
 def get_voice_of(name):

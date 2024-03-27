@@ -64,6 +64,8 @@ def api_get_data():
     config_util.save_config(config_data)
     wsa_server.get_web_instance().add_cmd({
         "voiceList": [
+            {"id": EnumVoice.HSIAO_CHEN.name, "name": "zh-TW-HsiaoChenNeural(女)"},
+            {"id": EnumVoice.HSIAO_YU.name, "name": "zh-TW-HsiaoYuNeural(女)"},
             {"id": EnumVoice.XIAO_XIAO.name, "name": "XiaoxiaoNeural(女)"},
             {"id": EnumVoice.YUN_XI.name, "name": "YunxiNeural(男)"},
             {"id": EnumVoice.YUN_JIAN.name, "name": "YunjianNeural(男)"},
