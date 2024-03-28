@@ -102,21 +102,36 @@ new Vue({
       }
       if (action === "remove") {
         if (this.items_data.length > 1) {
-          let tabs = this.items_data;
-          let activeName = this.editableTabsValue;
-          if (activeName === targetName) {
-            tabs.forEach((tab, index) => {
-              if (tab.tab_name === targetName) {
-                let nextTab = tabs[index + 1] || tabs[index - 1];
-                if (nextTab) {
-                  activeName = nextTab.tab_name;
-                }
+          this.$confirm("確認要刪除這個商品信息嗎?", "警告", {
+            confirmButtonText: "確定",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+            .then(() => {
+              // 用户点击了确认按钮
+              let tabs = this.items_data;
+              let activeName = this.editableTabsValue;
+              if (activeName === targetName) {
+                tabs.forEach((tab, index) => {
+                  if (tab.tab_name === targetName) {
+                    let nextTab = tabs[index + 1] || tabs[index - 1];
+                    if (nextTab) {
+                      activeName = nextTab.tab_name;
+                    }
+                  }
+                });
               }
-            });
-          }
 
-          this.editableTabsValue = activeName;
-          this.items_data = tabs.filter((tab) => tab.tab_name !== targetName);
+              this.editableTabsValue = activeName;
+              this.items_data = tabs.filter(
+                (tab) => tab.tab_name !== targetName
+              );
+            })
+            .catch(() => {
+              // 用户点击了取消按钮或关闭了对话框
+              // 这里可以添加取消删除的逻辑，或不做任何操作
+              console.log("取消刪除");
+            });
         }
       }
     },
