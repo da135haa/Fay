@@ -26,6 +26,7 @@ import pygame
 from utils import config_util as cfg
 from core import qa_service
 from ai_module import nlp_cemotion
+import vlc
 
 #nlp
 from ai_module import nlp_xfaiui
@@ -126,6 +127,9 @@ class FeiFei:
         self.__audio_time = 0
         self.__audio_queue = [] 
         self.cemotion = None
+        self.nowDemoVideo = None
+        self.currentlyPlaying = None  # 当前正在播放的视频路径
+        self.player = vlc.MediaPlayer()  # 创建VLC媒体播放器实例
 
     def __get_answer(self, interleaver, text):
 
@@ -296,6 +300,7 @@ class FeiFei:
                             self.last_speak_data = self.a_msg
                             self.speaking = True
                             self.last_quest_time = time.time()
+                            self.nowDemoVideo = item['demoVideo']
                             MyThread(target=self.__say, args=['script']).start()
             except BaseException as e:
                 print(e)
@@ -538,10 +543,7 @@ class FeiFei:
                     except socket.error as serr:
                         util.log(1,"远程音频输入输出设备已经断开：{}".format(serr))
                         wsa_server.get_web_instance().add_cmd({"remote_audio_connect": False})
-
-                
-                
-                    
+ 
                 wsa_server.get_web_instance().add_cmd({"panelMsg": self.a_msg})
                 if not cfg.config["interact"]["playSound"]:
                     if audio_length < 8:
@@ -562,11 +564,7 @@ class FeiFei:
                     if config_util.config["interact"]["playSound"]:
                         util.log(1, '结束播放！')
                     self.speaking = False
-            
-
-             
-
-           
+      
         except Exception as e:
             print(e)
 
@@ -643,6 +641,41 @@ class FeiFei:
                 self.__audio_time = message["Data"]["Time"]
                 time.sleep(self.__audio_time)
 
+    def __play_demo_video_if_needed(self):
+        videos_path_prefix = "videos/"
+        while self.__running:
+            # 检查是否有新的视频需要播放
+            if self.nowDemoVideo != self.currentlyPlaying:
+                # 如果nowDemoVideo指向新的视频，则更新当前播放的视频并播放新视频
+                self.currentlyPlaying = self.nowDemoVideo
+                video_full_path = os.path.join(videos_path_prefix, self.nowDemoVideo)
+                print(f"开始播放新视频: {video_full_path}")
+                # 设置视频源并播放
+                self.player.set_media(vlc.Media(video_full_path))
+                self.player.play()
+                # 重新设置音量为70%
+                self.player.audio_set_volume(70)
+                # 等待一小段时间让视频开始播放
+                time.sleep(0.1)  # 可能需要调整这个时间
+                
+                while self.player.is_playing():
+                    # 循环检查视频是否仍在播放，如果nowDemoVideo发生变化，则跳出循环
+                    if self.nowDemoVideo != self.currentlyPlaying:
+                        break
+                    time.sleep(1)  # 每秒检查一次
+
+            # 如果视频播放完毕（或被中断以播放新视频），且nowDemoVideo没有变化，则循环播放
+            if self.nowDemoVideo == self.currentlyPlaying and not self.player.is_playing() and self.nowDemoVideo:
+                # 重新设置媒体源以循环播放
+                video_full_path = os.path.join(videos_path_prefix, self.nowDemoVideo)
+                self.player.set_media(vlc.Media(video_full_path))
+                self.player.play()
+                # 重新设置音量为70%
+                self.player.audio_set_volume(70)
+            # 暂停一段时间后再次检查，这里设置为1秒检查一次
+            time.sleep(1)
+
+
     def set_play_end(self,play_end):
         self.__play_end = play_end
         if play_end:
@@ -666,7 +699,8 @@ class FeiFei:
         MyThread(target=self.__update_mood_runnable).start()
         MyThread(target=self.__add_invite).start()
         MyThread(target=self.__send_to_audio).start()
-    
+        MyThread(target=self.__play_demo_video_if_needed).start()
+
     def stop(self):
         self.__running = False
         song_player.stop()
