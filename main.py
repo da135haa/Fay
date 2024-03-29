@@ -17,9 +17,9 @@ def __clear_samples():
     if not os.path.exists("./samples"):
         os.mkdir("./samples")
     for file_name in os.listdir('./samples'):
-        if file_name.startswith('sample-') and file_name.endswith('.mp3'):
+        # if file_name.startswith('sample-') and file_name.endswith('.mp3'):
+        if file_name.startswith('sample-'):
             os.remove('./samples/' + file_name)
-
 
 def __clear_songs():
     if not os.path.exists("./songs"):
