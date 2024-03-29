@@ -57,7 +57,7 @@ Remote Android 　　[Live2D](https://www.bilibili.com/video/BV1sx4y1d775/?vd_so
 b 站监听 https://github.com/wangzai23333/blivedm
 微信视频号监听 https://github.com/fire4nt/wxlivespy
 
-### **与数字形象通讯**（非必须,控制器需要关闭“面板播放”）
+### **与数字形象通讯**（非必须,控制器需要關閉“面板播放”）
 
 控制器与采用 WebSocket 方式与 UE 通讯
 
@@ -81,7 +81,7 @@ b 站监听 https://github.com/wangzai23333/blivedm
 
 内网通讯地址: [`ws://127.0.0.1:10001`](ws://127.0.0.1:10001)
 
-外网通讯地址: 通过http://ngrok.cc获取（有伙伴愿意赞助服务器给社区免费使用吗？）
+外网通讯地址: 通过http://ngrok.cc获取（有伙伴愿意赞助服務器给社区免费使用吗？）
 
 ![](images/Dingtalk_20230131122109.jpg)
 消息格式: 参考 [remote_audio.py](https://github.com/TheRamU/Fay/blob/main/python_connector_demo/remote_audio.py)
@@ -127,9 +127,9 @@ b 站监听 https://github.com/wangzai23333/blivedm
 │   ├── tts_voice.py        # 语音生源枚举
 │   ├── authorize_tb.py     # fay.db认证表管理
 │   ├── viewer.py           # 抖音直播间接入模块
-│   └── wsa_server.py       # WebSocket 服务端
+│   └── wsa_server.py       # WebSocket 服務端
 ├── gui                     # 图形界面
-│   ├── flask_server.py     # Flask 服务端
+│   ├── flask_server.py     # Flask 服務端
 │   ├── static
 │   ├── templates
 │   └── window.py           # 窗口模块
@@ -175,7 +175,7 @@ python main.py
 | ------------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------- |
 | ./ai_module/ali_nls.py    | 阿里云 实时语音识别                              | https://ai.aliyun.com/nls/trans                                               |
 | ./ai_module/ms_tts_sdk.py | 微软 文本转情绪语音（可选）                      | https://azure.microsoft.com/zh-cn/services/cognitive-services/text-to-speech/ |
-| ./ai_module/nlp_lingju.py | 灵聚 NLP api(支持 GPT3.5 及多应用)（NLP 多选 1） | https://open.lingju.ai 需联系客服务开通 gpt3.5 权限                           |
+| ./ai_module/nlp_lingju.py | 灵聚 NLP api(支持 GPT3.5 及多应用)（NLP 多选 1） | https://open.lingju.ai 需联系客服務开通 gpt3.5 权限                           |
 | ./ai_module/xf_ltp.py     | 讯飞 情感分析                                    | https://www.xfyun.cn/service/emotion-analysis                                 |
 | ./utils/ngrok_util.py     | ngrok.cc 外网穿透（可选）                        | http://ngrok.cc                                                               |
 | ./ai_module/yuan_1_0.py   | 浪潮源大模型（NLP 3 选 1）                       | https://air.inspur.com/                                                       |
@@ -202,8 +202,8 @@ python main.py
 
 ### **语音指令**
 
-- **关闭核心**
-  关闭
+- **關閉核心**
+  關閉
   再见
   你走吧
 - **静音**

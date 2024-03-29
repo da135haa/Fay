@@ -10,6 +10,7 @@ from core.interact import Interact
 from core.recorder import Recorder
 from core import fay_core
 from core.viewer import Viewer
+from core.youtube_viewer import YoutubeViewer
 from scheduler.thread_manager import MyThread
 from utils import util, config_util, stream_util, ngrok_util
 from core.wsa_server import MyServer
@@ -18,10 +19,37 @@ from core.wsa_server import MyServer
 
 
 feiFei = None
+youtubeViewerListener: YoutubeViewer = None
 viewerListener: Viewer = None
 recorderListener: Recorder = None
 
 __running = False
+
+
+class YouTubeViewerListener(YoutubeViewer):
+
+    def __init__(self):
+        super().__init__()
+
+    def on_interact(self, interact: Interact, event_time):
+        type_names = {
+            1: '发言',
+            2: '进入',
+            3: '送礼',
+            4: '关注',
+            6: '点赞'
+        }
+        # util.printInfo(1, type_names[interact.interact_type], '{}: {}'.format(interact.data["user"], interact.data["msg"]), event_time)
+        if interact.interact_type == 1:
+            feiFei.last_quest_time = time.time()
+            
+        thr = MyThread(target=feiFei.on_interact, args=[interact])
+        thr.start()
+        thr.join()
+
+    def on_change_state(self, is_live_started):
+        feiFei.set_sleep(not is_live_started)
+        pass
 
 
 class ViewerListener(Viewer):
@@ -40,6 +68,7 @@ class ViewerListener(Viewer):
         # util.printInfo(1, type_names[interact.interact_type], '{}: {}'.format(interact.data["user"], interact.data["msg"]), event_time)
         if interact.interact_type == 1:
             feiFei.last_quest_time = time.time()
+            
         thr = MyThread(target=feiFei.on_interact, args=[interact])
         thr.start()
         thr.join()
@@ -181,8 +210,8 @@ def console_listener():
 
         if args[0] == 'help':
             util.log(1, 'in <msg> \t通过控制台交互')
-            util.log(1, 'restart \t重启服务')
-            util.log(1, 'stop \t\t关闭服务')
+            util.log(1, 'restart \t重启服務')
+            util.log(1, 'stop \t\t關閉服務')
 
         elif args[0] == 'stop':
             stop()
@@ -217,28 +246,33 @@ def console_listener():
         else:
             util.log(1, '未知命令！使用 \'help\' 获取帮助.')
 
-#停止服务
+#停止服務
 def stop():
     global feiFei
+    global youtubeViewerListener
     global viewerListener
     global recorderListener
     global __running
     global deviceInputListener
 
-    util.log(1, '正在关闭服务...')
+    util.log(1, '正在關閉服務...')
     __running = False
+
+    if youtubeViewerListener is not None:
+        util.log(1, '正在關閉yt直播服務...')
+        youtubeViewerListener.stop()
     if viewerListener is not None:
-        util.log(1, '正在关闭直播服务...')
+        util.log(1, '正在關閉直播服務...')
         viewerListener.stop()
     if recorderListener is not None:
-        util.log(1, '正在关闭录音服务...')
+        util.log(1, '正在關閉录音服務...')
         recorderListener.stop()
     if deviceInputListener is not None:
-        util.log(1, '正在关闭远程音频输入输出服务...')
+        util.log(1, '正在關閉远程音频输入输出服務...')
         deviceInputListener.stop()
-    util.log(1, '正在关闭核心服务...')
+    util.log(1, '正在關閉核心服務...')
     feiFei.stop()
-    util.log(1, '服务已關閉！')
+    util.log(1, '服務已關閉！')
 
 
 def start():
@@ -249,33 +283,37 @@ def start():
     global __running
     global deviceInputListener
 
-    util.log(1, '開啟服务...')
+    util.log(1, '開啟服務...')
     __running = True
 
     util.log(1, '读取配置...')
     config_util.load_config()
 
-    util.log(1, '開啟核心服务...')
+    util.log(1, '開啟核心服務...')
     feiFei = fay_core.new_instance()
     feiFei.start()
 
+    youTube = config_util.config['source']['youTube']
     liveRoom = config_util.config['source']['liveRoom']
     record = config_util.config['source']['record']
 
-    
+    if youTube['enabled']:
+        util.log(1, '開啟youTube直播監控服務...')
+        youtubeViewerListener = YouTubeViewerListener()  # 监听直播间
+        youtubeViewerListener.start()
 
     if liveRoom['enabled']:
-        util.log(1, '開啟直播服务...')
+        util.log(1, '開啟直播服務...')
         viewerListener = ViewerListener()  # 监听直播间
         viewerListener.start()
 
     if record['enabled']:
-        util.log(1, '開啟录音服务...')
+        util.log(1, '開啟录音服務...')
         recorderListener = RecorderListener(record['device'], feiFei)  # 监听麦克风
         recorderListener.start()
 
-    #edit by xszyou on 20230113:通过此服务來连接k210、手机等音频输入设备
-    util.log(1,'開啟远程设备音频输入服务...')
+    #edit by xszyou on 20230113:通过此服務來连接k210、手机等音频输入设备
+    util.log(1,'開啟远程设备音频输入服務...')
     deviceInputListener = DeviceInputListener(feiFei)  # 设备音频输入输出麦克风
     deviceInputListener.start()
 
@@ -290,6 +328,7 @@ def start():
 if __name__ == '__main__':
     ws_server: MyServer = None
     feiFei = None
+    youTubeViewerListener:YouTubeViewerListener = None
     viewerListener: Viewer = None
     recorderListener: Recorder = None
     start()

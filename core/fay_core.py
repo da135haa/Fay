@@ -99,7 +99,7 @@ class FeiFei:
         self.deviceSocket = None
         self.deviceConnect = None
 
-        #启动音频输入输出设备的连接服务
+        #启动音频输入输出设备的连接服務
         self.deviceSocketThread = MyThread(target=self.__accept_audio_device_output_connect)
         self.deviceSocketThread.start()
 

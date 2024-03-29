@@ -34,7 +34,7 @@ class MyServer:
                 await asyncio.sleep(0.01)
                 await self.__consumer(message)
         except websockets.exceptions.ConnectionClosedError as e:
-            util.log(1, f"WebSocket 连接关闭: {e}")
+            util.log(1, f"WebSocket 连接關閉: {e}")
             self.isConnect = False
             self.on_close_handler()
             
@@ -48,7 +48,7 @@ class MyServer:
                 if message and self.isConnect:
                     await websocket.send(message)
         except websockets.exceptions.ConnectionClosedError as e:
-            util.log(1, f"WebSocket 连接关闭: {e}")
+            util.log(1, f"WebSocket 连接關閉: {e}")
             self.isConnect = False
             self.on_close_handler()
     
@@ -65,7 +65,7 @@ class MyServer:
             self.isConnect = False
             util.log(1, "websocket连接断开:{}".format(self.__port))
             self.on_close_handler()
-        self.__clients.remove(websocket)  # 移除关闭的连接
+        self.__clients.remove(websocket)  # 移除關閉的连接
                 
                 
     async def __consumer(self, message):
@@ -79,22 +79,22 @@ class MyServer:
             return None
 
 
-    #Edit by xszyou on 20230113:通过继承此类來实现服务端的接收后处理逻辑
+    #Edit by xszyou on 20230113:通过继承此类來实现服務端的接收后处理逻辑
     @abstractmethod
     def on_revice_handler(self, message):
         pass
 
-    #Edit by xszyou on 20230114:通过继承此类來实现服务端的连接处理逻辑
+    #Edit by xszyou on 20230114:通过继承此类來实现服務端的连接处理逻辑
     @abstractmethod
     def on_connect_handler(self):
         pass
     
-    #Edit by xszyou on 20230804:通过继承此类來实现服务端的发送前的处理逻辑
+    #Edit by xszyou on 20230804:通过继承此类來实现服務端的发送前的处理逻辑
     @abstractmethod
     def on_send_handler(self, message):
         return message
 
-    #Edit by xszyou on 20230816:通过继承此类來实现服务端的断开后的处理逻辑
+    #Edit by xszyou on 20230816:通过继承此类來实现服務端的断开后的处理逻辑
     @abstractmethod
     def on_close_handler(self):
         pass
@@ -125,11 +125,11 @@ class MyServer:
     def set_fei_fei(self):
         pass
 
-    # 開啟服务
+    # 開啟服務
     def start_server(self):
         MyThread(target=self.__connect).start()
 
-    # 关闭服务
+    # 關閉服務
     def stop_server(self):
         self.__running = False
         self.isConnect = False
@@ -141,7 +141,7 @@ class MyServer:
             all_tasks = asyncio.all_tasks(self.__event_loop)
             for task in all_tasks:
                 while not task.cancel():
-                    util.log(1, "无法关闭！")
+                    util.log(1, "无法關閉！")
             self.__event_loop.stop()
             self.__event_loop.close()
         except BaseException as e:

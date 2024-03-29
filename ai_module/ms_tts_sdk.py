@@ -38,7 +38,7 @@ class Speech:
         if self.ms_tts:
             self.__connection = speechsdk.Connection.from_speech_synthesizer(self.__synthesizer)
             self.__connection.open(True)
-        util.log(1, "TTS 服务已经连接！")
+        util.log(1, "TTS 服務已经连接！")
 
     def close(self):
         if self.__connection is not None:

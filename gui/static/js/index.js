@@ -19,6 +19,8 @@ new Vue({
       fileList: {},
       panel_msg: "",
       play_sound_enabled: false,
+      source_youTube_enabled: false,
+      source_youTube_id: "",
       source_liveRoom_enabled: false,
       source_liveRoom_url: "",
       source_record_enabled: false,
@@ -128,7 +130,7 @@ new Vue({
               );
             })
             .catch(() => {
-              // 用户点击了取消按钮或关闭了对话框
+              // 用户点击了取消按钮或關閉了对话框
               // 这里可以添加取消删除的逻辑，或不做任何操作
               console.log("取消刪除");
             });
@@ -160,7 +162,7 @@ new Vue({
       let _this = this;
       let socket = new WebSocket("ws://localhost:10003");
       socket.onopen = function () {
-        // console.log('客户端连接上了服务器');
+        // console.log('客户端连接上了服務器');
       };
       socket.onmessage = function (e) {
         // console.log(" --> " + e.data)
@@ -253,6 +255,8 @@ new Vue({
               let perception = interact["perception"];
               let items = config["items"];
               _this.play_sound_enabled = interact["playSound"];
+              _this.source_youTube_enabled = source["youTube"]["enabled"];
+              _this.source_youTube_id = source["youTube"]["id"];
               _this.source_liveRoom_enabled = source["liveRoom"]["enabled"];
               _this.source_liveRoom_url = source["liveRoom"]["url"];
               _this.source_record_enabled = source["record"]["enabled"];
@@ -313,6 +317,10 @@ new Vue({
       let send_data = {
         config: {
           source: {
+            youTube: {
+              enabled: this.source_youTube_enabled,
+              id: this.source_youTube_id,
+            },
             liveRoom: {
               enabled: this.source_liveRoom_enabled,
               url: this.source_liveRoom_url,

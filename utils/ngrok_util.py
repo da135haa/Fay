@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 """
-    ngrok.cc 内网穿透服务 Python 版
+    ngrok.cc 内网穿透服務 Python 版
     本程序仅适用于ngrok.cc 使用前请先在 https://ngrok.cc 注册账号.
     Linux 系统一般自带Python 可以直接运行
     赋予权限 chmod 755 sunny.py
@@ -11,7 +11,7 @@
     Edit by xszyou in 2023-01-31:
     1、整体代码重构，便于外部程序调用;
     2、修复若干bug;
-    3、支持ngrok服务器重连及本地端口重连。
+    3、支持ngrok服務器重连及本地端口重连。
 
 
 """
@@ -31,7 +31,7 @@ class NgrokCilent(object):
     def __init__(self, clientId):
         self.__running = False
         self.clientId = clientId
-        self.host = None # Ngrok服务器地址
+        self.host = None # Ngrok服務器地址
         self.port = None # 端口
         self.tunnels = list() # 渠道队列
         self.reqIdaddr = dict()
@@ -45,7 +45,7 @@ class NgrokCilent(object):
 
     
 
-    # ngrok.cc 获取服务器设置
+    # ngrok.cc 获取服務器设置
     def update_server_config(self):
         host = 'www.ngrok.cc'
         port = 443
@@ -55,7 +55,7 @@ class NgrokCilent(object):
             ssl_client = ssl.wrap_socket(client, ssl_version=ssl.PROTOCOL_TLSv1_2) # ssl.PROTOCOL_TLSv1_2
             ssl_client.connect((host, port))
         except Exception:
-            util.log(1, 'ngrok连接认证服务器: https://www.ngrok.cc 错误.')
+            util.log(1, 'ngrok连接认证服務器: https://www.ngrok.cc 错误.')
             time.sleep(10)
             sys.exit()
 
@@ -84,11 +84,11 @@ class NgrokCilent(object):
             time.sleep(10)
             sys.exit()
 
-        util.log(1, 'ngrok认证成功,正在连接服务器...')
+        util.log(1, 'ngrok认证成功,正在连接服務器...')
         # 设置映射隧道,支持多渠道[客户端id]
         self.ngrok_adds(authData['data'])
         proto = authData['server'].split(':')
-        self.host = str(proto[0]) # Ngrok服务器地址
+        self.host = str(proto[0]) # Ngrok服務器地址
         self.port = int(proto[1]) # 端口
         return
 
@@ -229,14 +229,14 @@ class NgrokCilent(object):
             return client
     
     # 客户端程序处理过程
-    # linkstate 0:未连接 1:已连接ngrok服务器，2：已经连接到本地应用 #
-    # type 1:连接ngrok服务器 2:启动控制：注册、认证、启动隧道 3:启动代理
+    # linkstate 0:未连接 1:已连接ngrok服務器，2：已经连接到本地应用 #
+    # type 1:连接ngrok服務器 2:启动控制：注册、认证、启动隧道 3:启动代理
     def HKClient(self, sock, linkstate, type,  tosock = None):
         recvbuf = bytes()
         while self.__running:
             try:
                 if linkstate == 0:
-                    if type == 1: #ngrok服务器的连接
+                    if type == 1: #ngrok服務器的连接
                         self.send_pack(sock, self.ngrok_auth_package(), False)
                         linkstate = 1
                     if type == 2:#启动控制：注册、认证、启动隧道
@@ -293,7 +293,7 @@ class NgrokCilent(object):
                                     tosock = self.localSocket
                                     linkstate = 2
                                 else:
-                                    body = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Web服务错误</title><meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><style>html,body{height:100%%}body{margin:0;padding:0;width:100%%;display:table;font-weight:100;font-family:"Microsoft YaHei",Arial,Helvetica,sans-serif}.container{text-align:center;display:table-cell;vertical-align:middle}.content{border:1px solid #ebccd1;text-align:center;display:inline-block;background-color:#f2dede;color:#a94442;padding:30px}.title{font-size:18px}.copyright{margin-top:30px;text-align:right;color:#000}</style></head><body><div class="container"><div class="content"><div class="title">隧道 %s 无效<br>无法连接到<strong>%s</strong>. 此端口尚未提供Web服务</div></div></div></body></html>'
+                                    body = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Web服務错误</title><meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><style>html,body{height:100%%}body{margin:0;padding:0;width:100%%;display:table;font-weight:100;font-family:"Microsoft YaHei",Arial,Helvetica,sans-serif}.container{text-align:center;display:table-cell;vertical-align:middle}.content{border:1px solid #ebccd1;text-align:center;display:inline-block;background-color:#f2dede;color:#a94442;padding:30px}.title{font-size:18px}.copyright{margin-top:30px;text-align:right;color:#000}</style></head><body><div class="container"><div class="content"><div class="title">隧道 %s 无效<br>无法连接到<strong>%s</strong>. 此端口尚未提供Web服務</div></div></div></body></html>'
                                     html = body % (js['Payload']['Url'], localhost + ':' + str(localport))
                                     header = "HTTP/1.0 502 Bad Gateway" + "\r\n"
                                     header += "Content-Type: text/html" + "\r\n"
@@ -338,7 +338,7 @@ class NgrokCilent(object):
                         continue
                     self.mainsocket = self.connect_remote(ip, self.port)
                     if self.mainsocket is None:
-                        util.log(1, 'ngrok隧道服务器连接失败.')
+                        util.log(1, 'ngrok隧道服務器连接失败.')
                         time.sleep(10)
                         continue
                     thread = threading.Thread(target = self.HKClient, args = (self.mainsocket, 0, 1))#主控制连接，监测远程客户端连接
@@ -358,7 +358,7 @@ class NgrokCilent(object):
                 sys.exit()
     #停止
     def stop(self):
-        util.log(1, 'ngrok隧道正在关闭...')
+        util.log(1, 'ngrok隧道正在關閉...')
         self.__running = False
         if self.mainsocket:
             self.mainsocket.close()

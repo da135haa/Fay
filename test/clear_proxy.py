@@ -1,7 +1,7 @@
 
 import winreg
     
- #关闭系统代理
+ #關閉系统代理
 def disable_windows_proxy():
     settings_key = r'Software\Microsoft\Windows\CurrentVersion\Internet Settings'
     try:
@@ -11,7 +11,7 @@ def disable_windows_proxy():
         # 设置代理启用值为0（禁用）
         winreg.SetValueEx(settings, 'ProxyEnable', 0, winreg.REG_DWORD, 0)
         
-        # 清空代理服务器和代理覆盖设置
+        # 清空代理服務器和代理覆盖设置
         winreg.SetValueEx(settings, 'ProxyServer', 0, winreg.REG_SZ, '')
         winreg.SetValueEx(settings, 'ProxyOverride', 0, winreg.REG_SZ, '')
         

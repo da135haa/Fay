@@ -140,6 +140,12 @@
                     <div class="source">
                         <ul>
                             <li class="url">
+                                <el-switch v-model="source_youTube_enabled" active-color="#13ce66" inactive-color="#ff4949">
+                                </el-switch>
+                                <p>YT直播ID</p>
+                                <el-input v-model="source_youTube_id" placeholder="請輸入內容"></el-input>
+                            </li>
+                            <li class="url">
                                 <el-switch v-model="source_liveRoom_enabled" active-color="#13ce66" inactive-color="#ff4949">
                                 </el-switch>
                                 <p>彈幕地址</p>
@@ -156,7 +162,6 @@
                                 </el-select>
                             </li>
                             <li class="url">
-
                                 <p style="margin-left: 40px">訊 息</p>
                                 <el-input v-model="panel_msg" :disabled="true"></el-input>
                             </li>

@@ -24,7 +24,7 @@ class __WSClient(WebSocketClient):
         # if code == 1000:
         #     print("qa close")
         # else:
-        #     print("连接异常关闭，code：" + str(code) + " ，reason：" + str(reason))
+        #     print("连接异常關閉，code：" + str(code) + " ，reason：" + str(reason))
         return
 
     def received_message(self, m):

@@ -388,7 +388,7 @@ version_lt() {
   [[ "${1%.*}" -lt "${2%.*}" ]] || [[ "${1%.*}" -eq "${2%.*}" && "${1#*.}" -lt "${2#*.}" ]]
 }
 
-#发现错误 关闭脚本 提示如何解决
+#发现错误 關閉脚本 提示如何解决
 error_game_over(){
     echo "
     ${tty_red}失败$MY_DOWN_NUM 右键下面地址查看常见错误解决办法
@@ -596,7 +596,7 @@ if [[ -z "${HOMEBREW_ON_LINUX-}" ]]; then
 
   fi
 
-  echo "==> 从 $USER_SERVICES_GIT 克隆Homebrew services 管理服务的启停
+  echo "==> 从 $USER_SERVICES_GIT 克隆Homebrew services 管理服務的启停
   "
   sudo mkdir -p ${HOMEBREW_REPOSITORY}/Library/Taps/homebrew/homebrew-cask
   sudo git clone ${GIT_SPEED} $USER_SERVICES_GIT ${HOMEBREW_REPOSITORY}/Library/Taps/homebrew/homebrew-services/
